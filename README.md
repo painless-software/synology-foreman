@@ -1,7 +1,12 @@
 Synology Foreman
 ================
 
-Infrastructure configuration management setup using The Foreman (Docker) on a Synology NAS (DSM).
+Infrastructure configuration management setup
+
+- using [The Foreman](https://theforeman.org/) (Docker-based) as a
+  [Puppet ENC](https://puppet.com/docs/puppet/7.1/nodes_external.html)
+- on a [Synology NAS](https://www.synology.com/en-global/products/series/home) (e.g. DS918+ running DSM 6.2.3)
+- and a modern router (e.g. [Synology RT2600ac](https://www.synology.com/en-global/products/RT2600ac) running SRM 1.2.4).
 
 Base Setup (Synology DSM)
 -------------------------
@@ -33,3 +38,19 @@ Network Boot (PXE/TFTP)
 
 1. Activate TFTP service (Control Panel > File Services > TFTP/PXE > TFTP)
 1. Configure DHCP service (on router) or on the Synology NAS (Control Panel > File Services > TFTP/PXE > PXE)
+
+Alternatively, you can activate PXE on the router if the DHCP service supports
+the `next-server` option. This will officially be supported by Synology routers
+(and available in their GUI) from SRM 2.0 onwards. Here is the manual setup:
+
+```ini
+# FILE: /etc/dhcpd/dhcpd-lbr0-lbr00.conf
+interface=lbr0
+# replace boot path and IP address by your TFTP host values
+dhcp-boot=tag:pxe,/boot,bootserver,192.168.5.5
+dhcp-vendorclass=set:pxe,PXEClient
+```
+
+Then run `/etc/rc.network nat-restart-dhcp` and verify that the "lbr0"
+interface is configured in `/etc/dhcpd/dhcpd.conf` with the PXE settings.
+Note that all this must be reapplied after any router SRM upgrade.
