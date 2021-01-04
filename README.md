@@ -12,7 +12,8 @@ Base Setup (Synology DSM)
 -------------------------
 
 1. [Enable SynoCommunity](https://synocommunity.com/) in Package Center
-1. Install: Docker, Git ([GitHub #3375](https://github.com/SynoCommunity/spksrc/issues/3375#issuecomment-407526024)), OpenLDAP _or_ Active Directory ([example](https://blog.cubieserver.de/2018/synology-nas-samba-nfs-and-kerberos-with-freeipa-ldap/))
+1. Install: Docker, Git ([GitHub #3375](https://github.com/SynoCommunity/spksrc/issues/3375#issuecomment-407526024)),
+   OpenLDAP _or_ Active Directory ([example](https://blog.cubieserver.de/2018/synology-nas-samba-nfs-and-kerberos-with-freeipa-ldap/))
    ```bash
    # FILE: $HOME/.bashrc (inspired by: /etc.defaults/.bashrc_profile)
    PS1='\[\033[01;32m\]\u@\h\[\033[0m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -24,12 +25,26 @@ Base Setup (Synology DSM)
 The Foreman Setup (ENC)
 -----------------------
 
-1. Use Docker Compose to [set up The Foreman](https://github.com/theforeman/foreman/blob/develop/developer_docs/containers.asciidoc)
+1. Generate a Docker Compose setup tailored to your needs:
+   ```console
+   tools/generate-docker-compose.sh
+   ```
+1. Use Docker Compose to [set up The Foreman](
+   https://github.com/theforeman/foreman/blob/develop/developer_docs/containers.asciidoc)
+
+### Set up initial values
+
 1. Configure AD integration (Administer > LDAP Auth)
 1. Create OS (Hosts > Operating Systems)
 1. Create domain (Infrastructure > Domains)
 1. Create host group (Configure > Host Groups)
 1. Configure reduced UI for unprivileged users
+
+This can be done using the [hammer-cli-foreman](https://github.com/theforeman/hammer-cli-foreman):
+
+```console
+tools/install-hammercli-ubuntu.sh
+```
 
 Network Boot (PXE/TFTP)
 -----------------------
