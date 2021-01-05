@@ -25,6 +25,8 @@ services:
   app: &app_base
     image: quay.io/foreman/foreman:2.3-stable
     command: bundle exec bin/rails server -b 0.0.0.0
+    build:
+      context: .
     environment:
       - DATABASE_URL=postgres://foreman:foreman@db/foreman?pool=5
       - RAILS_MAX_THREADS=5
