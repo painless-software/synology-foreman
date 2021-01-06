@@ -34,10 +34,10 @@ The Foreman Setup (ENC)
 
 ### Set up initial values
 
-1. Configure AD integration (Administer > LDAP Auth)
 1. Create OS (Hosts > Operating Systems)
 1. Create domain (Infrastructure > Domains)
 1. Create host group (Configure > Host Groups)
+1. Configure AD integration (Administer > LDAP Auth)
 1. Configure reduced UI for unprivileged users
 
 This can be done using the [hammer-cli-foreman](https://github.com/theforeman/hammer-cli-foreman):
@@ -56,7 +56,8 @@ Network Boot (PXE/TFTP)
 
 Alternatively, you can activate PXE on the router if the DHCP service supports
 the `next-server` option. This will officially be supported by Synology routers
-(and available in their GUI) from SRM 2.0 onwards. Here is the manual setup:
+(and available in their GUI) from SRM 2.0 onwards. Here is the manual setup for
+SRM < 2.0:
 
 ```ini
 # FILE: /etc/dhcpd/dhcpd-lbr0-lbr00.conf
