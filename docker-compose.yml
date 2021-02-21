@@ -23,7 +23,7 @@ services:
       - db:/var/lib/postgresql/data
 
   app: &app_base
-    image: quay.io/foreman/foreman:2.3-stable
+    image: quay.io/foreman/foreman:2.4-stable
     command: bundle exec bin/rails server -b 0.0.0.0
     build:
       context: .
