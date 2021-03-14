@@ -40,14 +40,8 @@ The Foreman Setup (ENC)
 1. Configure AD integration (Administer > LDAP Auth)
 1. Configure reduced UI for unprivileged users
 
-This can be done using the [hammer-cli-foreman](https://github.com/theforeman/hammer-cli-foreman):
-
-```console
-tools/install-hammercli-ubuntu.sh
-```
-
 This can be done using The Foreman's [official Ansible modules](
-https://theforeman.org/plugins/foreman-ansible-modules/).
+https://theforeman.github.io/foreman-ansible-modules/develop/plugins/).
 
 Make sure you have Ansible 2.9+ installed, then run:
 
