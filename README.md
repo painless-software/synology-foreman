@@ -46,6 +46,24 @@ This can be done using the [hammer-cli-foreman](https://github.com/theforeman/ha
 tools/install-hammercli-ubuntu.sh
 ```
 
+This can be done using The Foreman's [official Ansible modules](
+https://theforeman.org/plugins/foreman-ansible-modules/).
+
+Make sure you have Ansible 2.9+ installed, then run:
+
+```console
+ansible-galaxy collection install theforeman.foreman
+```
+
+Adapt the Ansible setup in `init/` to your liking, then run the playbook:
+
+```console
+export FOREMAN_SERVER_URL=http://0.0.0.0:3000
+export FOREMAN_USERNAME=admin
+export FOREMAN_PASSWORD=changeme
+ansible-playbook init/playbook.yml
+```
+
 Network Boot (PXE/TFTP)
 -----------------------
 

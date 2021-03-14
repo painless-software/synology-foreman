@@ -1,0 +1,13 @@
+# Defaults for:
+# - Administer > Locations
+---
+
+- name: Remove 'default location'
+  theforeman.foreman.location:
+    name: Default Location
+    state: absent
+
+- name: Home, sweet home
+  theforeman.foreman.location:
+    name: Home, sweet home
+    state: present

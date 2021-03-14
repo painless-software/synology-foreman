@@ -1,0 +1,16 @@
+# Defaults for:
+# - Administer > Authentication Sources > LDAP
+---
+
+- name: LDAP on Synology NAS
+  theforeman.foreman.auth_source_ldap:
+    name: Synology NAS (LDAP)
+    host: home.local
+    base_dn: dc=home,dc=local
+    groups_base: uid=root,cn=users,dc=home,dc=local
+    onthefly_register: yes
+    attr_login: uid
+    attr_firstname: gecos
+    attr_lastname: sn
+    attr_mail: mail
+    state: present
