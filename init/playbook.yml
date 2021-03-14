@@ -1,0 +1,30 @@
+# Ansible playbook for seeding initial data in The Foreman.
+#
+# export FOREMAN_SERVER_URL=http://0.0.0.0:3000
+# export FOREMAN_USERNAME=admin
+# export FOREMAN_PASSWORD=changeme
+# ansible-playbook init/playbook.yml
+---
+
+- hosts: localhost
+  tasks:
+  - name: Administer
+    block:
+    - import_tasks: tasks/locations.yml
+    - import_tasks: tasks/organizations.yml
+    - import_tasks: tasks/authsourcesldap.yml
+    tags:
+    - administer
+
+  - name: Infrastructure
+    block:
+    - import_tasks: tasks/operatingsystems.yml
+    - import_tasks: tasks/domains.yml
+    tags:
+    - infrastructure
+
+  - name: Configure
+    block:
+    - import_tasks: tasks/hostgroups.yml
+    tags:
+    - configure

@@ -1,0 +1,13 @@
+# Defaults for:
+# - Administer > Organizations
+---
+
+- name: Remove 'default organization'
+  theforeman.foreman.organization:
+    name: Default Organization
+    state: absent
+
+- name: My family
+  theforeman.foreman.organization:
+    name: My family
+    state: present

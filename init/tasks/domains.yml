@@ -1,0 +1,13 @@
+# Defaults for:
+# - Infrastructure > Domains
+---
+
+- name: Domain local
+  theforeman.foreman.domain:
+    name: local
+    description: Local network (internal)
+    locations:
+    - Home, sweet home
+    organizations:
+    - My family
+    state: present
