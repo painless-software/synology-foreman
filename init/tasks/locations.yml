@@ -10,4 +10,6 @@
 - name: Home, sweet home
   theforeman.foreman.location:
     name: Home, sweet home
+    organizations:
+    - My family
     state: present

@@ -10,8 +10,8 @@
   tasks:
   - name: Administer
     block:
-    - import_tasks: tasks/locations.yml
     - import_tasks: tasks/organizations.yml
+    - import_tasks: tasks/locations.yml
     - import_tasks: tasks/authsourcesldap.yml
     tags:
     - administer
@@ -19,6 +19,7 @@
   - name: Infrastructure
     block:
     - import_tasks: tasks/operatingsystems.yml
+    - import_tasks: tasks/provisioning.yml
     - import_tasks: tasks/domains.yml
     tags:
     - infrastructure

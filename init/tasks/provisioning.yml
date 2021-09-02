@@ -1,0 +1,14 @@
+# Defaults for:
+# - Hosts > Installation Media
+---
+
+- name: Installation media
+  theforeman.foreman.installation_medium:
+    name: Ubuntu mirror
+    locations:
+    - Home, sweet home
+    organizations:
+    - My family
+    operatingsystems:
+    - Ubuntu 20.04
+    - Ubuntu 21.04

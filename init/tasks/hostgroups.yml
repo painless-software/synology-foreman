@@ -12,8 +12,8 @@
     medium: Ubuntu mirror
     ptable: Preseed default
     pxe_loader: PXELinux BIOS
-    locations:
-    - Home, sweet home
     organizations:
     - My family
+    locations:
+    - Home, sweet home
     state: present
