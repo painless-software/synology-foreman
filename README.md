@@ -5,8 +5,8 @@ Infrastructure configuration management setup
 
 - using [The Foreman](https://theforeman.org/) (Docker-based) as a
   [Puppet ENC](https://puppet.com/docs/puppet/7.1/nodes_external.html)
-- on a [Synology NAS](https://www.synology.com/en-global/products/series/home) (e.g. DS918+ running DSM 6.2.3)
-- and a modern router (e.g. [Synology RT2600ac](https://www.synology.com/en-global/products/RT2600ac) running SRM 1.2.4).
+- on a [Synology NAS](https://www.synology.com/en-global/products/series/home) (e.g. DS918+ running DSM 7.0)
+- and a modern router (e.g. [Synology RT2600ac](https://www.synology.com/en-global/products/RT2600ac) running SRM 1.2.5).
 
 Base Setup (Synology DSM)
 -------------------------
@@ -63,8 +63,8 @@ Network Boot (PXE/TFTP)
 
 [How to implement PXE with Synology NAS](https://www.synology.com/en-global/knowledgebase/DSM/tutorial/General/How_to_implement_PXE_with_Synology_NAS) (official)
 
-1. Activate TFTP service (Control Panel > File Services > TFTP/PXE > TFTP)
-1. Configure DHCP service (on router) or on the Synology NAS (Control Panel > File Services > TFTP/PXE > PXE)
+1. Activate TFTP service (Control Panel > File Services > Advanced > TFTP)
+1. Configure DHCP service (on router) or on the Synology NAS (DHCP Server > PXE)
 
 Alternatively, you can activate PXE on the router if the DHCP service supports
 the `next-server` option. This will officially be supported by Synology routers
@@ -72,13 +72,25 @@ the `next-server` option. This will officially be supported by Synology routers
 SRM < 2.0:
 
 ```ini
-# FILE: /etc/dhcpd/dhcpd-lbr0-lbr00.conf
-interface=lbr0
-# replace boot path and IP address by your TFTP host values
-dhcp-boot=tag:pxe,/boot,bootserver,192.168.5.5
-dhcp-vendorclass=set:pxe,PXEClient
+# FILE: /etc/dhcpd/dhcpd-lbr0-pxe.conf
+# replace boot image and IP address by your TFTP host values
+dhcp-boot=tag:lbr00,pxelinux.0,tftpserver,10.0.4.2
+dhcp-boot=tag:x86PC,pxelinux.0,,10.0.4.2
+dhcp-boot=tag:EFI_ia32,grub2/shim.efi,,10.0.4.2
+dhcp-boot=tag:BC_EFI,grub2/shim.efi,,10.0.4.2
+dhcp-boot=tag:EFI_x86-64,grub2/shim.efi,,10.0.4.2
+dhcp-match=x86PC,option:client-arch,0
+dhcp-match=EFI_ia32,option:client-arch,6
+dhcp-match=BC_EFI,option:client-arch,7
+dhcp-match=EFI_x86-64,option:client-arch,9
+dhcp-option=tag:lbr00,vendor:PXEClient,1,10.0.4.2
+```
+```ini
+# FILE: /etc/dhcpd/dhcpd-lbr0-pxe.info
+enable="yes"
 ```
 
-Then run `/etc/rc.network nat-restart-dhcp` and verify that the "lbr0"
-interface is configured in `/etc/dhcpd/dhcpd.conf` with the PXE settings.
-Note that all this must be reapplied after any router SRM upgrade.
+Then run `/etc/rc.network nat-restart-dhcp` or reboot your router. This
+will configure PXE on the "lbr0" interface in `/etc/dhcpd/dhcpd.conf`.
+Note: By using a separate configuration file this setup should even survive
+SRM upgrades on the router (take this with a grain of salt).
