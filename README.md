@@ -90,7 +90,14 @@ dhcp-option=tag:lbr00,vendor:PXEClient,1,10.0.4.2
 enable="yes"
 ```
 
-Then run `/etc/rc.network nat-restart-dhcp` or reboot your router. This
-will configure PXE on the "lbr0" interface in `/etc/dhcpd/dhcpd.conf`.
+Then run `/etc/rc.network nat-restart-dhcp` or reboot your router.
+This will configure PXE on the "lbr0" interface in `/etc/dhcpd/dhcpd.conf`.
 Note: By using a separate configuration file this setup should even survive
 SRM upgrades on the router (take this with a grain of salt).
+
+Use `tcpdump` on your Synology router if you need to troubleshoot PXE client
+requests and DHCP responses:
+
+```console
+tcpdump -i any -pvn port 67 and 68
+```
