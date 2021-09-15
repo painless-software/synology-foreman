@@ -48,6 +48,8 @@ services:
       test: ["CMD-SHELL", "nc -z 127.0.0.1 3000 || exit 1"]
       interval: 5m
       start_period: 1m
+    volumes:
+      - tftpboot:/var/lib/tftpboot
 
   orchestrator:
     <<: *app_base
@@ -69,6 +71,14 @@ services:
     volumes:
       - redis-persistent:/data
 
+  tftp:
+    image: wastrachan/tftpd
+    ports:
+      - 69:69/udp
+    volumes:
+      - tftpboot:/data
+
 volumes:
   db:
   redis-persistent:
+  tftpboot:

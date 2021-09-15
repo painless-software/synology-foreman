@@ -19,5 +19,8 @@ sed -E \
     -e "/ build:$/d" \
     -e "/   context: \.$/d" \
     -e "s/example\.com/$1/g" \
+    -e "s|(start_period:.+$)|\1\n    volumes:\n      - tftpboot:/var/lib/tftpboot|" \
+    -e "s|(^volumes:$)|  tftp:\n    image: wastrachan/tftpd\n    ports:\n      - 69:69/udp\n    volumes:\n      - tftpboot:/data\n\n\1|" \
+    -e "s|(redis-persistent:$)|\1\n  tftpboot:|" \
 \
 > $(dirname $0)/../docker-compose.yml
