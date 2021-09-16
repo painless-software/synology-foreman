@@ -48,8 +48,6 @@ services:
       test: ["CMD-SHELL", "nc -z 127.0.0.1 3000 || exit 1"]
       interval: 5m
       start_period: 1m
-    volumes:
-      - tftpboot:/var/lib/tftpboot
 
   orchestrator:
     <<: *app_base
@@ -70,6 +68,13 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - redis-persistent:/data
+
+  proxy:
+    image: r7it/foreman-proxy:2.1.4-2
+    ports:
+      - 8080:8080
+    volumes:
+      - tftpboot:/var/lib/tftpboot
 
   tftp:
     image: wastrachan/tftpd
