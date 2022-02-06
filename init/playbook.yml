@@ -18,7 +18,7 @@
 
   - name: Infrastructure
     block:
-    - import_tasks: tasks/operatingsystems.yml
+    - import_tasks: tasks/operatingsystems/__all__.yml
     - import_tasks: tasks/provisioning.yml
     - import_tasks: tasks/domains.yml
     tags:

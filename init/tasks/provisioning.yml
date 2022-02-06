@@ -11,4 +11,14 @@
     - My family
     operatingsystems:
     - Ubuntu 20.04
-    - Ubuntu 21.04
+    - Ubuntu 21.10
+
+- name: Installation media
+  theforeman.foreman.installation_medium:
+    name: CentOS Stream
+    locations:
+    - Home, sweet home
+    organizations:
+    - My family
+    operatingsystems:
+    - CentOS Stream

@@ -1,0 +1,11 @@
+# Defaults for:
+# - Hosts > Operating Systems
+# - Hosts > Provisioning Templates
+# - Hosts > Architectures
+---
+
+- name: Operating Systems
+  block:
+  - import_tasks: centos-stream.yml
+  - import_tasks: ubuntu-latest.yml
+  - import_tasks: ubuntu-lts.yml

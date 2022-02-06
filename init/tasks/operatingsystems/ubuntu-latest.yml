@@ -1,0 +1,48 @@
+# Defaults for:
+# - Hosts > Operating Systems
+# - Hosts > Provisioning Templates
+# - Hosts > Architectures
+---
+
+- name: Ubuntu 21.10
+  theforeman.foreman.operatingsystem:
+    description: Ubuntu 21.10 (Impish Indri)
+    family: Debian
+    name: Ubuntu
+    major: '21'
+    minor: '10'
+    release_name: impish
+    password_hash: SHA256
+    state: present
+    architectures:
+    - x86_64
+    ptables:
+    - Preseed default
+    - Preseed default LVM
+    media:
+    - Ubuntu mirror
+    provisioning_templates:
+    - Preseed default
+    - Preseed default finish
+    - Preseed default PXELinux
+
+- name: Preseed default finish
+  theforeman.foreman.os_default_template:
+    operatingsystem: Ubuntu 21.10
+    template_kind: finish
+    provisioning_template: Preseed default finish
+    state: present
+
+- name: Preseed default
+  theforeman.foreman.os_default_template:
+    operatingsystem: Ubuntu 21.10
+    template_kind: provision
+    provisioning_template: Preseed default
+    state: present
+
+- name: Preseed default PXELinux
+  theforeman.foreman.os_default_template:
+    operatingsystem: Ubuntu 21.10
+    template_kind: PXELinux
+    provisioning_template: Preseed default PXELinux
+    state: present
