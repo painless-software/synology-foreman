@@ -4,14 +4,14 @@
 # - Hosts > Architectures
 ---
 
-- name: Ubuntu 20.04 LTS
+- name: Ubuntu 22.04 LTS
   theforeman.foreman.operatingsystem:
-    description: Ubuntu 20.04.3 LTS (Focal Fossa)
+    description: Ubuntu 22.04.1 LTS (Jammy Jellyfish)
     family: Debian
     name: Ubuntu
-    major: '20'
+    major: '22'
     minor: '04'
-    release_name: focal
+    release_name: jammy
     password_hash: SHA256
     state: present
     architectures:
@@ -28,21 +28,21 @@
 
 - name: Preseed default finish
   theforeman.foreman.os_default_template:
-    operatingsystem: Ubuntu 20.04
+    operatingsystem: Ubuntu 22.04
     template_kind: finish
     provisioning_template: Preseed default finish
     state: present
 
 - name: Preseed default
   theforeman.foreman.os_default_template:
-    operatingsystem: Ubuntu 20.04
+    operatingsystem: Ubuntu 22.04
     template_kind: provision
     provisioning_template: Preseed default
     state: present
 
 - name: Preseed default PXELinux
   theforeman.foreman.os_default_template:
-    operatingsystem: Ubuntu 20.04
+    operatingsystem: Ubuntu 22.04
     template_kind: PXELinux
     provisioning_template: Preseed default PXELinux
     state: present

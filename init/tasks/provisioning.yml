@@ -10,8 +10,8 @@
     organizations:
     - My family
     operatingsystems:
-    - Ubuntu 20.04
-    - Ubuntu 21.10
+    - Ubuntu 22.04
+    - Ubuntu 22.10
 
 - name: Installation media
   theforeman.foreman.installation_medium:

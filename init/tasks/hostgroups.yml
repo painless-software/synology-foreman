@@ -8,7 +8,7 @@
     description: Portable workstations
     domain: local
     architecture: x86_64
-    operatingsystem: Ubuntu 20.04
+    operatingsystem: Ubuntu 22.04
     medium: Ubuntu mirror
     ptable: Preseed default
     pxe_loader: PXELinux BIOS
